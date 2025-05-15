@@ -211,7 +211,7 @@
     <section class="product-area">
         <div class="product-area-header">
             <div></div>
-            <a href="{{ route('products.create') }}" class="add-btn">＋商品を追加</a>
+            <a href="{{ route('products.register') }}" class="add-btn">＋商品を追加</a>
         </div>
         <div class="product-list">
             @foreach ($products as $product)

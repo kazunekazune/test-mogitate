@@ -22,7 +22,7 @@
 
         .container {
             padding: 0 16px;
-            background: #fff;
+            background: #f7f7f7;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
