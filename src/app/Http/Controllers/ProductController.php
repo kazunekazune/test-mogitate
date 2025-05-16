@@ -19,6 +19,13 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->keyword . '%');
         }
 
+        //価格順
+        if ($request->sort === 'asc') {
+            $query->orderBy('price', 'asc');
+        } elseif ($request->sort === 'desc') {
+            $query->orderBy('price', 'desc');
+        }
+
         $products = $query->paginate(6)->appends($request->all());
 
         return view('products.index', compact('products'));

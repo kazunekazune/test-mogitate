@@ -4,11 +4,21 @@
 
 @section('head')
 <style>
+    .edit-container {
+        position: relative;
+        background: #f7f7f7;
+        padding: 32px;
+        border-radius: 12px;
+        max-width: 900px;
+        margin: 48px auto 0 auto;
+    }
+
     .edit-main {
         display: flex;
         gap: 40px;
         align-items: flex-start;
-        margin-top: 32px;
+        justify-content: center;
+        margin-top: 0;
     }
 
     .edit-left {
@@ -30,7 +40,6 @@
         width: 100%;
         padding: 10px 14px;
         border: 1px solid #ccc;
-        border-radius: 8px;
         font-size: 1em;
         background: #fafafa;
         margin-bottom: 4px;
@@ -38,16 +47,6 @@
 
     input[type="file"] {
         margin-bottom: 8px;
-    }
-
-    input[type="radio"] {
-        width: 22px;
-        height: 22px;
-        accent-color: #f7b500;
-        /* モダンブラウザで色指定 */
-        border-radius: 50%;
-        margin-right: 6px;
-        vertical-align: middle;
     }
 
     .checkbox-group label {
@@ -64,7 +63,8 @@
     .button-group {
         display: flex;
         gap: 16px;
-        margin-top: 32px;
+        justify-content: center;
+        margin-top: 24px;
     }
 
     .btn {
@@ -99,13 +99,45 @@
         position: absolute;
         right: 32px;
         bottom: 32px;
+        padding: 0;
     }
 
-    .edit-container {
-        position: relative;
-        background: #f7f7f7;
-        padding: 32px;
-        border-radius: 12px;
+    .trash-btn img {
+        width: 40px;
+        height: 40px;
+        transition: filter 0.2s;
+    }
+
+    .trash-btn:hover img {
+        filter: brightness(0.8);
+    }
+
+    .center-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    .form-group,
+    .description-group {
+        width: 600px;
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .description-group textarea {
+        width: 600px;
+        min-height: 180px;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1em;
+        background: #fafafa;
+        resize: vertical;
     }
 </style>
 @endsection
@@ -124,27 +156,27 @@
             </div>
             <div class="edit-right">
                 <div class="form-group">
-                    <label>商品名 <span style="color:#e53935;">必須</span></label>
+                    <label>商品名</label>
                     <input type="text" name="name" placeholder="商品名を入力" value="{{ old('name', $product->name) }}">
                     @if ($errors->has('name'))
                     <div class="error-message">{{ $errors->first('name') }}</div>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label>値段 <span style="color:#e53935;">必須</span></label>
+                    <label>値段</label>
                     <input type="number" name="price" placeholder="値段を入力" value="{{ old('price', $product->price) }}">
                     @if ($errors->has('price'))
                     <div class="error-message">{{ $errors->first('price') }}</div>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label>季節 <span style="color:#e53935;">複数選択可</span></label>
+                    <label>季節</label>
                     <div class="checkbox-group">
                         @php
                         $selectedSeasons = old('season', explode(',', $product->season));
                         @endphp
                         @foreach(['春', '夏', '秋', '冬'] as $season)
-                        <label style="margin-right: 18px;">
+                        <label>
                             <input type="checkbox" name="season[]" value="{{ $season }}"
                                 {{ in_array($season, $selectedSeasons) ? 'checked' : '' }}>
                             {{ $season }}
@@ -155,24 +187,26 @@
                     <div class="error-message">{{ $errors->first('season') }}</div>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label>商品説明 <span style="color:#e53935;">必須</span></label>
-                    <textarea name="description" placeholder="商品の説明を入力">{{ old('description', $product->description) }}</textarea>
-                    @if ($errors->has('description'))
-                    <div class="error-message">{{ $errors->first('description') }}</div>
-                    @endif
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn btn-cancel" onclick="window.location='{{ route('products.index') }}'">戻る</button>
-                    <button type="submit" class="btn btn-submit">変更を保存</button>
-                </div>
+            </div>
+        </div>
+        <div class="center-area">
+            <div class="form-group description-group">
+                <label>商品説明</label>
+                <textarea name="description" placeholder="商品の説明を入力">{{ old('description', $product->description) }}</textarea>
+                @if ($errors->has('description'))
+                <div class="error-message">{{ $errors->first('description') }}</div>
+                @endif
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn btn-cancel" onclick="window.location='{{ route('products.index') }}'">戻る</button>
+                <button type="submit" class="btn btn-submit">変更を保存</button>
             </div>
         </div>
     </form>
-    <form action="{{ route('products.delete', $product->id) }}" method="POST" style="display:inline;">
+    <form action="{{ route('products.delete', $product->id) }}" method="POST" class="trash-btn">
         @csrf
-        <button type="submit" style="background:none; border:none; cursor:pointer;">
-            <img src="{{ asset('images/trash-icon.png') }}" alt="削除" width="32" height="32">
+        <button type="submit" style="background:none; border:none; padding:0;">
+            <img src="{{ asset('images/trash-icon.png') }}" alt="削除">
         </button>
     </form>
 </div>

@@ -70,13 +70,16 @@
     .select-wrapper {
         position: relative;
         width: 100%;
+        height: 44px;
     }
 
     .sort-select {
         width: 100%;
+        height: 44px;
+        line-height: 44px;
         border-radius: 8px;
         border: 1px solid #ccc;
-        padding: 10px 36px 10px 16px;
+        padding: 0px 36px 0px 16px;
         font-size: 1em;
         background: #fafafa;
         color: #888;
@@ -87,6 +90,8 @@
         box-sizing: border-box;
         margin-bottom: 24px;
         cursor: pointer;
+        height: 44px;
+        line-height: 44px;
     }
 
     .select-wrapper::after {
@@ -186,6 +191,56 @@
         color: #333;
         margin: 0 16px 8px 16px;
     }
+
+    .pagination-nav {
+        display: flex;
+        justify-content: center;
+        margin-top: 24px;
+    }
+
+    .pagination-list {
+        display: flex;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pagination-item a,
+    .pagination-item span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #fff;
+        color: #f7b500;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-decoration: none;
+        border: 1px solid #f7b500;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .pagination-item.active span {
+        background: #f7b500;
+        color: #fff;
+        border: 1px solid #f7b500;
+    }
+
+    .pagination-item.disabled span {
+        color: #ccc;
+        border: 1px solid #eee;
+        background: #fafafa;
+        cursor: not-allowed;
+    }
 </style>
 @endsection
 
@@ -202,8 +257,8 @@
             <div class="select-wrapper">
                 <select name="sort" class="sort-select" onchange="this.form.submit()">
                     <option value="">価格で並べ替え</option>
-                    <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>高い順に表示</option>
-                    <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>低い順に表示</option>
+                    <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>高い順に表示</option>
+                    <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>低い順に表示</option>
                 </select>
             </div>
         </form>
@@ -223,10 +278,11 @@
                         <span class="product-price">¥{{ number_format($product->price) }}</span>
                     </div>
                 </div>
-                @endforeach
+            </a>
+            @endforeach
         </div>
         <div>
-            {{ $products->links() }}
+            {{ $products->links('vendor.pagination.custom') }}
         </div>
     </section>
 </div>
