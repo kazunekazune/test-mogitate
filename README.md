@@ -33,8 +33,8 @@ exit
 - diagrams.net（ER図作成）
 
 ## ER図
-(![ER図](https://github.com/your-username/your-repo-name/blob/main/images/er.png?raw=true)
-)
+![ER図](https://github.com/kazunekazune/test-mogitate/blob/main/er.png?raw=true)
+
 
 ## URL
 - 開発環境: http://localhost/
