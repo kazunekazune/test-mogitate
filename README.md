@@ -34,7 +34,6 @@ exit
 
 ## ER図
 ![ER図](./er.png)
-<!-- 画像ファイルをdocsフォルダに入れた場合は ![ER図](./docs/er.png) にしてください -->
 
 ## URL
 - 開発環境: http://localhost/
