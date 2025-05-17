@@ -83,6 +83,18 @@
     .btn-submit:hover {
         background: #e6a800;
     }
+
+    .required-label {
+        background: #e53935;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: bold;
+        margin-left: 4px;
+        display: inline-block;
+        vertical-align: middle;
+    }
 </style>
 @endsection
 
@@ -94,7 +106,7 @@
         @csrf
 
         <div class="form-group">
-            <label>商品名 <span style="color:#e53935;">必須</span></label>
+            <label>商品名 <span class="required-label">必須</span></label>
             <input type="text" name="name" placeholder="商品名を入力" value="{{ old('name') }}">
             @if ($errors->has('name'))
             <div class="error-message">{{ $errors->first('name') }}</div>
@@ -102,7 +114,7 @@
         </div>
 
         <div class="form-group">
-            <label>値段 <span style="color:#e53935;">必須</span></label>
+            <label>値段 <span class="required-label">必須</span></label>
             <input type="number" name="price" placeholder="値段を入力" value="{{ old('price') }}">
             @if ($errors->has('price'))
             <div class="error-message">{{ $errors->first('price') }}</div>
@@ -110,7 +122,7 @@
         </div>
 
         <div class="form-group">
-            <label>商品画像 <span style="color:#e53935;">必須</span></label>
+            <label>商品画像 <span class="required-label">必須</span></label>
             <input type="file" name="image">
             @if ($errors->has('image'))
             <div class="error-message">{{ $errors->first('image') }}</div>
@@ -118,7 +130,7 @@
         </div>
 
         <div class="form-group">
-            <label>季節 <span style="color:#e53935;">複数選択可</span></label>
+            <label>季節 <span class="required-label">複数選択可</span></label>
             <div class="checkbox-group">
                 @php
                 $selectedSeasons = old('season', []);
